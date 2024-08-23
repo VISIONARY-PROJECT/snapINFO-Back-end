@@ -1,0 +1,9 @@
+{
+    "apiKey": "AIzaSyAnYY2NJti8jc9j3JXeR86salmFyyXUdQ0",
+    "authDomain": "snapinfo-back-end.firebaseapp.com",
+    "databaseURL": "https://snapinfo-back-end-default-rtdb.firebaseio.com",
+    "projectId": "snapinfo-back-end",
+    "storageBucket": "snapinfo-back-end.appspot.com",
+    "messagingSenderId": "620282198897",
+    "appId": "1:620282198897:web:36916de5f5eea5186d54d0"
+  }
