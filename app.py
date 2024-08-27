@@ -1,5 +1,6 @@
 from flask import Flask, request, session, jsonify
 from DB_handler import DBmodule
+import text_model
 import uuid
 import datetime
 from flask_cors import CORS
@@ -91,8 +92,8 @@ def model():
 
     uid = session.get("uid")       #일단
 
-    #Dtext = text_model.detect_text("static/img/{}.jpeg".format(photoid))
-    Dtext = "for test"
+    Dtext = text_model.summarize_text("static/img/{}.jpeg".format(photoid))
+
     if Dtext == None:                         #인식이 안된 경우 
         print("no text")
         return jsonify({"imgsrc" : "static/img/{}.jpeg".format(photoid) , "detect" : False, "text" : Dtext})
