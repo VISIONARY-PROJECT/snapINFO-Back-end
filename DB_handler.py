@@ -38,4 +38,38 @@ class DBmodule:
             return True
         else:
             return False
+        
+    def write_post(self, photoid, uid, Dtext):
+        information ={
+            "uid":uid,
+            "photo":"static/img/{}.jpeg".format(photoid),
+            "text":Dtext,
+            "category" : None
+        }
+        self.db.child("posts").child(photoid).set(information)
 
+    def update_category(self, photoid, category):
+        self.db.child("posts").child(photoid).update({"category":category})
+
+    def get_category(self, uid, category):
+        post_list =[]
+        users_post =self.db.child("posts").get().val()
+        try:
+            for post in users_post.items():
+                if post[1]["uid"]==uid and post[1]["category"]==category:
+                    print(post[0])  #post[0]가 photoid?
+                    post_list.append(post[0])
+            return post_list
+        except:
+            return post_list
+        
+    def get_detail(self, photoid):
+        posts =self.db.child("posts").get().val()
+        try: 
+            for post in posts.items():
+                if post[0] == photoid:
+                    print(post[0])
+                    return(post[1])
+        except:
+            return None
+                    
