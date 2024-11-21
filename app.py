@@ -22,22 +22,17 @@ DB=DBmodule()
 def index():
     return True
 
-@app.route("/upload", methods = ["POST"])    #사진 업로드
-def upload():
-    f = request.files.get('file')
-
-    print("checkupload")   #테스팅
-    print(f)
-
-    photoid = str(uuid.uuid4())[:12]                   #서버에는 임의의 이름으로 받은 사진 저장
-    f.save("static/img/{}.jpeg".format(photoid))   
-    return jsonify({"photo_id" : photoid})            #저장한 사진의 url을 프론트에 전달
-
 #OCR 모델
 @app.route("/model", methods = ["POST"])
 def model():
-    id = request.get_json()                      #저장한 사진의 url을 프론트에서 다시 받기
-    photoid = id['photo_id']
+    f = request.files.get('file')
+    print("---------------------")
+    print("checkupload")   #테스팅
+    print(f)
+    print("---------------------")
+
+    photoid = str(uuid.uuid4())[:12]                   #서버에는 임의의 이름으로 받은 사진 저장
+    f.save("static/img/{}.jpeg".format(photoid))   
 
     Dtext = text_model.summarize_text("static/img/{}.jpeg".format(photoid))
 
@@ -75,7 +70,7 @@ def detail():
     detail_info = DB.get_detail(photoid)
     print(detail_info)
 
-    return jsonify({"photo": detail_info["photo"] , "text" : detail_info["Dtext"]})
+    return jsonify({"text" : detail_info["Dtext"]})
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0")
