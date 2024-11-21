@@ -38,11 +38,11 @@ def model():
 
     if Dtext == None:                         #인식이 안된 경우 
         print("no text")
-        return jsonify({"detect" : False, "text" : Dtext})
+        return jsonify({"photo_id": photoid, "detect" : False, "text" : Dtext})
     else: 
         print("yes text")
         DB.write_post(photoid, Dtext)  
-        return jsonify({"detect" : True, "text": Dtext})
+        return jsonify({"photo_id": photoid, "detect" : True, "text": Dtext})
     
 
 @app.route("/category", methods = ["POST"])
