@@ -39,9 +39,8 @@ class DBmodule:
         else:
             return False
         
-    def write_post(self, photoid, uid, Dtext):
+    def write_post(self, photoid, Dtext):
         information ={
-            "uid":uid,
             "photo":"static/img/{}.jpeg".format(photoid),
             "text":Dtext,
             "category" : None
@@ -51,12 +50,12 @@ class DBmodule:
     def update_category(self, photoid, category):
         self.db.child("posts").child(photoid).update({"category":category})
 
-    def get_category(self, uid, category):
+    def get_category(self, category):
         post_list =[]
         users_post =self.db.child("posts").get().val()
         try:
             for post in users_post.items():
-                if post[1]["uid"]==uid and post[1]["category"]==category:
+                if post[1]["category"]==category:
                     print(post[0])  #post[0]가 photoid?
                     post_list.append(post[0])
             return post_list
